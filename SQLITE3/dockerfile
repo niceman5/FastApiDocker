@@ -1,0 +1,11 @@
+# Alpine Linux를 기반 이미지로 사용합니다.
+FROM alpine:latest
+
+# sqlite 패키지를 설치합니다.
+# --no-cache 옵션은 이미지 용량을 줄이는 데 도움이 됩니다.
+RUN apk add --no-cache sqlite
+
+# 컨테이너가 시작될 때 실행할 기본 명령어를 설정합니다.
+# 여기서는 컨테이너가 바로 종료되지 않도록 sleep 명령어를 사용합니다.
+CMD ["sleep", "infinity"]
+
