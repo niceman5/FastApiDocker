@@ -18,10 +18,10 @@ API 접속: http://localhost:8000
 API 자동 문서 (Swagger UI): http://localhost:8000/docs
 
 # 컨테이너 중지
-docker stop fastapi-container
+docker stop fastapi-dev
 
 # 컨테이너 삭제
-docker rm fastapi-container
+docker rm fastapi-dev
 
 docker run 명령어를 실행할 때, Dockerfile에 정의된 CMD를 무시하고 --reload 옵션이 추가된 새로운 명령어를 직접 전달하면 됩니다.
 docker run -d -p 8000:80 -v C:\docker\FastApi/app:/app --name fastapi-dev fastapi-app uvicorn main:app --reload --host 0.0.0.0 --port 80
@@ -88,11 +88,21 @@ Docker 이미지 빌드 및 컨테이너 실행
 이미지 빌드: 터미널을 열고 Dockerfile이 있는 디렉토리로 이동한 후, 다음 명령어를 실행하여 이미지를 빌드합니다. sqlite-image는 원하는 이미지 이름으로 변경할 수 있습니다.
 
 
-docker build -t sqlite-image .
+
+## 사용 방법 🚀
+---
+#### Dockerfile Build
+
+Dockerfile 저장: 위 내용을 Dockerfile이라는 이름으로 PC의 원하는 폴더에 저장합니다.
+Docker 이미지 빌드: 터미널을 열고 Dockerfile이 있는 폴더로 이동한 뒤, 아래 명령어를 실행하여 이미지를 빌드합니다.
+-t my-sqlite는 이미지의 이름을 my-sqlite로 지정하는 옵션입니다.
+---
+#### docker build -t my-sqlite .
+
 컨테이너 실행: 빌드된 이미지를 사용하여 컨테이너를 실행합니다. my-sqlite-container는 원하는 컨테이너 이름으로 변경 가능합니다.
 
 
-docker run -d --name my-sqlite-container sqlite-image
+docker run -d --name my-sqlite-container my-sqlite
 -d 옵션은 컨테이너를 백그라운드에서 실행합니다.
 
 컨테이너 접속 및 SQLite 실행: 실행 중인 컨테이너의 터미널에 접속합니다.
@@ -115,12 +125,12 @@ docker rm my-sqlite-container
 
 Windows 예시:
 # Windows (CMD)
-docker run -d --name my-sqlite-container -v "%cd%/db:/data" sqlite-image
+docker run -d --name my-sqlite-container -v "%cd%/db:/data" my-sqlite
 # Windows (PowerShell)
-docker run -d --name my-sqlite-container -v "${PWD}/db:/data" sqlite-image
-docker run -d --name my-sqlite-container -v "C:\docker\SQLITE3\db:/data" sqlite-image
+docker run -d --name my-sqlite-container -v "${PWD}/db:/data" my-sqlite
+docker run -d --name my-sqlite-container -v "C:\docker\SQLITE3\db:/data" my-sqlite
 
-Mac/Linux 예시: docker run -d --name my-sqlite-container -v ~/docker_volumes/sqlite:/db sqlite-image
+Mac/Linux 예시: docker run -d --name my-sqlite-container -v ~/docker_volumes/sqlite:/db my-sqlite
 
 
 
