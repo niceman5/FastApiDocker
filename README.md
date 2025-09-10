@@ -135,4 +135,15 @@ Mac/Linux 예시: docker run -d --name my-sqlite-container -v ~/docker_volumes/s
 
 
 docker exec -it my-sqlite-container /bin/bash
-sqlite3 test.db
+
+# /data 디렉터리로 이동했는지 확인
+# sqlite3로 데이터베이스 파일(예: myapp.db)을 엽니다. 파일이 없으면 새로 생성됩니다.
+sqlite3 myapp.db
+
+# sqlite> 프롬프트가 나타나면 아래 명령어로 스키마를 읽어옵니다.
+.read schema.sql
+
+# .tables 명령어로 테이블이 잘 생성되었는지 확인합니다.
+.tables
+
+# .exit 로 빠져나옵니다.

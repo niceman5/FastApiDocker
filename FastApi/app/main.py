@@ -8,4 +8,4 @@ app = FastAPI()
 # 루트 경로 핸들러
 @app.get("/")
 def read_root():
-    return {"message": "Hello from FastAPI in Docker!4444 🐳"}
+    return {"message": "Hello from FastAPI in Docker!555 🐳"}
