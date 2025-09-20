@@ -24,7 +24,25 @@ docker stop fastapi-dev
 docker rm fastapi-dev
 
 docker run 명령어를 실행할 때, Dockerfile에 정의된 CMD를 무시하고 --reload 옵션이 추가된 새로운 명령어를 직접 전달하면 됩니다.
-docker run -d -p 8000:80 -v C:\docker\FastApi/app:/app --name fastapi-dev fastapi-app uvicorn main:app --reload --host 0.0.0.0 --port 80
+
+-- 프로젝트 루트를 마운트하고 uvicorn을 모듈 형태로 실행 (권장)
+-- ImportError: attempted relative import with no known parent package 오류 해결
+-- -v C:\docker\FastApi:/app : 프로젝트 루트를 마운트
+-- -v C:\docker\FastApi\data:/data : 로컬의 data 폴더를 컨테이너의 /data 폴더에 마운트하여 DB 파일 영속성 유지
+-- -w /app : 컨테이너의 작업 디렉토리를 /app으로 설정
+docker run -d -p 8000:80 -v C:\docker\FastApi:/app -v C:\docker\FastApi\data:/data -w /app --name fastapi-dev fastapi-app uvicorn app.main:app --reload --host 0.0.0.0 --port 80
+
+
+
+# docker에서 test프로젝트 실행
+# 1. 컨테이너 셸에 접속
+docker exec -it fastapi-dev /bin/bash
+
+# 2. /app 디렉토리에서 pytest 실행 (컨테이너 내부)
+# pytest 명령어는 자동으로 'tests' 폴더를 찾아 테스트를 실행합니다.
+pytest
+
+
 
 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

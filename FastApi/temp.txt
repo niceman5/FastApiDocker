@@ -18,3 +18,14 @@
 
 
 
+1. 테스트를 위한 패키지 추가
+테스트를 위해 pytest와, 테스트 코드에서 API를 호출할 때 사용하는 httpx 라이브러리가 필요합니다. requirements.txt
+파일에 두 패키지를 추가해 주세요.
+
+fastapi
+uvicorn[standard]
+SQLAlchemy
+pytest
+httpx
+
+

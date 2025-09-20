@@ -1,2 +1,10 @@
-#특정 디렉토리에 있는 모든 파일 무시
-FastApi\app\__pycache__/
+# 파이썬 캐시 파일 및 디렉토리
+# 모든 하위 폴더의 __pycache__ 디렉토리를 무시합니다.
+__pycache__/
+*.pyc
+
+# Pytest 캐시
+.pytest_cache/
+
+# 데이터베이스 파일
+*.db
