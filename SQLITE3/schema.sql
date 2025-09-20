@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS posts (
     user_no INTEGER NOT NULL,             -- 작성자 번호 (필수 값)
     -- 외래 키(FOREIGN KEY) 설정: posts.user_id가 users.id를 참조합니다.
     -- ON DELETE CASCADE: 참조하는 사용자가 삭제되면, 해당 사용자가 작성한 모든 게시글도 함께 삭제됩니다.
+    -- ON DELETE CASCADE: 참조하는 사용자가 삭제되면, 해당 사용자가 작성한 모든 게시글도 함께 삭제됩니다. (SQLAlchemy 모델에서 ondelete="CASCADE"로 구현)
     FOREIGN KEY (user_no) REFERENCES users (user_no) ON DELETE CASCADE
 );
 

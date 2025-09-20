@@ -1,0 +1,20 @@
+
+# 프로젝트 구조 제안
+먼저, 다음과 같은 프로젝트 구조를 추천합니다. 이 구조는 FastAPI의 공식 문서에서도 권장하는 방식으로,
+코드를 기능별로 분리하여 유지보수하기 좋습니다.
+
+/
+├── app/
+│   ├── __init__.py
+│   ├── main.py         # FastAPI 앱 초기화 및 라우터 포함
+│   ├── database.py     # 데이터베이스 연결 설정
+│   ├── models.py       # SQLAlchemy ORM 모델 (테이블 정의)
+│   ├── schemas.py      # Pydantic 스키마 (데이터 유효성 검사 및 형태 정의)
+│   └── routers/
+│       ├── __init__.py
+│       ├── users.py    # 'users' 관련 API 엔드포인트
+│       └── posts.py    # 'posts' 관련 API 엔드포인트
+└── Dockerfile
+
+
+
