@@ -30,6 +30,7 @@ Base = declarative_base()
 
 # --- 의존성 주입(Dependency Injection) ---
 
+
 # API 라우터에서 데이터베이스 세션을 사용하기 위한 의존성 함수입니다.
 # FastAPI가 API 요청을 처리할 때 이 함수를 호출하여 DB 세션을 얻고, 처리가 끝나면 자동으로 세션을 닫습니다.
 def get_db():

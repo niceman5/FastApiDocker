@@ -5,6 +5,7 @@ from sqlalchemy import Column, Integer, String, Text, ForeignKey, DateTime, func
 from sqlalchemy.orm import relationship
 from .database import Base
 
+
 # 'users' 테이블에 매핑되는 User 클래스
 class User(Base):
     # 데이터베이스 내의 테이블 이름

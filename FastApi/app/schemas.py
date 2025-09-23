@@ -5,13 +5,16 @@ from pydantic import BaseModel
 from typing import List, Optional
 import datetime
 
+
 # --- Post Schemas ---
 class PostBase(BaseModel):
     title: str
     content: str
 
+
 class PostCreate(PostBase):
     user_no: int
+
 
 class Post(PostBase):
     post_no: int
@@ -21,6 +24,7 @@ class Post(PostBase):
     class Config:
         orm_mode = True
 
+
 # --- User Schemas ---
 class UserBase(BaseModel):
     id: str
@@ -29,8 +33,10 @@ class UserBase(BaseModel):
     user_sex: Optional[str] = 'M'
     user_name: str
 
+
 class UserCreate(UserBase):
     pass
+
 
 class User(UserBase):
     user_no: int
