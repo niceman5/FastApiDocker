@@ -24,15 +24,35 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     # ID 중복 확인: 요청된 ID가 이미 DB에 존재하는지 확인합니다.
     db_user_by_id = db.query(models.User).filter(models.User.id == user.id).first()
     if db_user_by_id:
-        raise HTTPException(status_code=400, detail="ID already registered")
+        raise HTTPException(status_code=400, detail="동일한 ID가 이미 등록되어 있습니다.")
 
     # 이메일 중복 확인: 요청된 이메일이 이미 DB에 존재하는지 확인합니다.
     db_user_by_email = db.query(models.User).filter(models.User.email == user.email).first()
     if db_user_by_email:
-        raise HTTPException(status_code=400, detail="Email already registered")
+        raise HTTPException(status_code=400, detail="동일한 Email이 이미 등록되어 있습니다.")
+
+    # 휴대폰번호 중복 확인: 요청된 휴대폰번호가 이미 DB에 존재하는지 확인합니다.
+    db_user_by_phone_number = db.query(models.User).filter(models.User.phone_number == user.phone_number).first()
+    if db_user_by_phone_number:
+        raise HTTPException(status_code=400, detail="동일한 휴대폰번호가 이미 등록되어 있습니다.")
 
     # schemas.UserCreate(Pydantic 모델)를 models.User(SQLAlchemy 모델)로 변환하여 DB에 저장할 객체를 만듭니다.
+    # **는 파이썬에서 딕셔너리 언패킹(Dictionary Unpacking) 연산자라고 부릅니다. 이 연산자는 딕셔너리의 키-값 쌍을
+    # 풀어서 함수의 키워드 인자(keyword arguments)로 전달하는 역할을 합니다.
+    # 따라서 models.User(**user.dict()) 코드는 아래 코드와 완전히 동일하게 동작합니다.
+    # ** 를 사용하지 않았을 경우
+    # user_data = user.dict()
+    # db_user = models.User(
+    #     id=user_data['id'],
+    #     email=user_data['email'],
+    #     phone_number=user_data['phone_number'],
+    #     user_sex=user_data['user_sex'],
+    #     user_name=user_data['user_name']
+    # )
+    # ** 연산자는 Pydantic 모델의 데이터를 SQLAlchemy 모델 객체의 속성에 매핑하여 인스턴스를 생성하는 과정을 매우 간결하게
+    # 만들어주는 역할을 합니다.
     db_user = models.User(**user.dict())
+
     db.add(db_user)      # DB 세션에 새 사용자 객체를 추가합니다.
     db.commit()          # 세션의 변경사항을 DB에 최종 반영(저장)합니다.
     db.refresh(db_user)  # DB에 저장된 후의 최신 정보(예: user_no, reg_date)를 객체에 다시 로드합니다.
